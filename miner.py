@@ -32,7 +32,7 @@ for winterYear in ("2018",):
 
 			for hour in ("0500",):
 				# Create File Link
-				fileName = "LEIA98_KWBR_" + year + month + day + hour
+				fileName = "LTIA98_KWBR_" + year + month + day + hour
 				link = headLink + historical + year + month + "/" + year + month + day + "/" + fileName
 
 				# Save File
@@ -41,10 +41,3 @@ for winterYear in ("2018",):
 				with open("data/" + fileName, 'wb') as f:
 					shutil.copyfileobj(r.raw, f)
 					print("Data Saved: " + link)
-
-
-
-# for i in range(32): # LEIA98_KWBR_2020 12 31 1 05 00
-# 	link = "LEIA98_KWBR_" + year + 
-
-# 	https://www.ncei.noaa.gov/data/national-digital-guidance-database/access/202012/20201231/LEIA98_KWBR_202012310500
