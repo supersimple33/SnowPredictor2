@@ -5,10 +5,11 @@ verify_ssl = true
 
 [dev-packages]
 pylint = "*"
+matplotlib = "*"
+cartopy = "*"
 
 [packages]
 pygrib = "*"
-matplotlib = "*"
 numpy = "*"
 
 [requires]
