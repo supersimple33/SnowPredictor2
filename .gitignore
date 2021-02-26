@@ -129,3 +129,4 @@ dmypy.json
 
 data/*
 temperatures/*
+master_data/*
