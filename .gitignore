@@ -127,6 +127,8 @@ dmypy.json
 .vscode
 *.icloud
 
+# My Ignores
 data/*
 temperatures/*
 master_data/*
+BADdata2019p/*
