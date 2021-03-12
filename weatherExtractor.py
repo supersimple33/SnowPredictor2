@@ -23,17 +23,14 @@ def populate(y, m, d):
 def extract(file):
 	grbs = pygrib.open(file)
 
-	measurements = []
 	for grb in grbs:
-		dat = grb.data(lat1=41.11, lat2=41.18, lon1=-73.55, lon2=-73.45)
-		measurements.append(sum(dat[0]) / (len(dat[0]))) #could take median to avoid skewing
-
-	grbs.close()
-	return measurements
-
+		if grb.name == '2 metre temperature' and grb.bitsPerValue >= 10:
+			dat = grb.data(lat1=41.11, lat2=41.18, lon1=-73.55, lon2=-73.45)
+			grbs.close()
+			return sum(dat[0]) / len(dat[0]) #could take median to avoid skewing
+	raise KeyError # should only be executed if d
 # Get a list and iterate through all gribs
-files = list(Path("./data").rglob("LEIA*"))
-i = 0
+files = list(Path("./master_data/rtma3").rglob("LTIA*"))
 offset = 12
 
 with futures.ThreadPoolExecutor() as executor:
@@ -52,11 +49,11 @@ with futures.ThreadPoolExecutor() as executor:
 			d = int(f[offset+6 : offset+8])
 			t = int(f[offset+8 : offset+12])
 			populate(y,m,d)
-			weather[y][m][d][t] = future.result()[0]
+			weather[y][m][d][t] = future.result()
 		if i % (len(files) // 20) == 0:
 			print(i / len(files))
 		i += 1
 
 # Save data in JSON
-with open('data2019maxt.json', 'w') as fp:
+with open('rt2019wind3.json', 'w') as fp:
 	json.dump(weather, fp, indent=2, sort_keys=True)
