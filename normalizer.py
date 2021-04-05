@@ -33,7 +33,10 @@ for index, row in df.iterrows():
     if date(int(components[2]), int(components[0]), int(components[1])).weekday() >= 5:
         df.loc[index, 'drop'] = True
 
-df.to_csv('normalOuput.csv')
+# Create a row to track snowday labels (set all to false and manually parse)
+df.insert(7, "snowday", False)
+
+df.to_csv('normalOutput.csv')
 
 df.plot('minTemp', 'maxTemp', kind='scatter')
 plt.show()
